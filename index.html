@@ -8,6 +8,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 </head>
@@ -25,11 +26,11 @@
         <div class="col s3">
           <form action="#">
             <div class="file-field input-field">
-              <div class="btn" type="submit">
+              <div id="search-button" class="btn" type="submit">
                 <span>Search</span>
               </div>
               <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+                <input id="search-input" class="search-input" type="text">
               </div>
             </div>
           </form>
