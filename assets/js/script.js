@@ -12,6 +12,7 @@ fetch(ticketmasterApi)
         })
         .then(function (data) {;
             console.log(data);
+            
 
             const eventsArray = data._embedded.events;
             for (let i = 0; i < eventsArray.length; i++) {
@@ -21,9 +22,9 @@ fetch(ticketmasterApi)
                 console.log(eventsArray[i]._embedded.venues[0].address.line1) //venue address
                 console.log(eventsArray[i].images[0].url) //artist image
                 console.log(eventsArray[i].url) //ticket url
-                console.log(dayjs(eventsArray[i].dates.start.localDate).format('M/D')) //date
-                console.log(dayjs(eventsArray[i].dates.start.localTime, 'HH:mm').format('h:mm A')) //time
-                console.log(typeof(eventsArray[i].dates.start.localTime))
+                console.log(dayjs(eventsArray[i].dates.start.dateTime).format('M/D')) //date
+
+                console.log(dayjs(eventsArray[i].dates.start.dateTime).format('h:mm A')) //time
                 
             }
         })
