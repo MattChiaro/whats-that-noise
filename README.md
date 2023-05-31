@@ -12,7 +12,7 @@ SO THAT I can dress appropriately and make the most out of the event
 ```
 GIVEN a form field requesting city input
 WHEN I search for a city
-THEN I am presented with current weather for that city, as well as all events occuring in that city
+THEN I am presented with current weather for that city, as well as all music events occuring in that city
 WHEN I view the current weather
 THEN I am presented with temperature, wind speed, an icon, and a description of weather
 WHEN I view events occuring in that city
