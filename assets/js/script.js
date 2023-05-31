@@ -35,8 +35,7 @@ fetch(
 
 function displayWeather(weatherObject, weatherElement) {
   // var iconUrl = "http://openweathermap.org/img/w/" + weatherObject.weather[0].icon + ".png";
-  weatherElement.innerHTML =
-    weatherObject.dt_txt || new Date().toLocaleDateString(); //No date, grab current date off of Local
+  weatherElement.innerHTML =    weatherObject.dt_txt || new Date().toLocaleDateString(); //No date, grab current date off of Local
   weatherElement.innerHTML += "<br>";
   weatherElement.innerHTML += "Temp: " + weatherObject.main.temp + " °F";
   weatherElement.innerHTML += "<br>";
@@ -72,4 +71,8 @@ fetch(ticketmasterApi)
 
       console.log(dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A")); //time
     }
+  });
+
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
   });
