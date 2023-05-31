@@ -1,0 +1,8 @@
+.event-container {
+    overflow-y: scroll;
+    max-height: 20%;
+}
+
+.event-container::-webkit-scrollbar {
+    display: none;
+}
