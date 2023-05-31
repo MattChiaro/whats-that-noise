@@ -13,7 +13,7 @@ fetch(
     const lat = lat_lon[0].lat;
     const lon = lat_lon[0].lon;
     const state = lat_lon[0].state;
-    
+
     var geo =
       "https://api.openweathermap.org/data/2.5/weather?lat=" +
       lat +
@@ -28,7 +28,7 @@ fetch(
       })
       .then(function (response) {
         const current = response;
-       
+        console.log(response);
         displayWeather(current, currentElement);
       });
   });
