@@ -7,11 +7,11 @@ const currentDay = dayjs();
 const endOfDay = currentDay.endOf("day").format();
 const currentDayAndTime = dayjs().format();
 const currentElement = document.getElementById("weatherinfo");
-
+let city = "";
 // fetch geo coordinates
 
 function searchCity() {
-    const city = searchInput.value.trim()
+    city = searchInput.value.trim()
 
     const geoApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
 
