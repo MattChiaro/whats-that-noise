@@ -181,6 +181,7 @@ listedEventsEl.addEventListener("click", function (event) { //listen for clicks 
 
 document.querySelector("#modal1").addEventListener("click", function (event) { //listen for clicks on save event button
     const idArray = event.target.id.split("-")
+    event.target.textContent = "saved"
     const i = idArray[2]
     saveEvent(eArray, i)
 
