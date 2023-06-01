@@ -1,13 +1,24 @@
 //housekeeping
-
 const searchInput = document.querySelector("#search-input");
 const aTgFdFgW = "EBLlYPmsJS0INYOanmR3K7FG7BKYE1eg"; //ticketmaster key
 const RfGyArBH = 'f143fe1fd933ca340292950f394916e2'; //openweather key
-const currentDay = dayjs();
-const endOfDay = currentDay.endOf("day").format();
-const currentDayAndTime = dayjs().format();
+const dateInput = document.querySelector("#date-selector");
+
+dateInput.value = dayjs().format('M/D/YY'); //set date input to current day
+
 const currentWeatherEl = document.getElementById("weatherinfo");
 const listedEventsEl = document.getElementById("listed-events");
+
+
+$(document).ready(function () { //modal and datepicker initialization
+    $('.modal').modal();
+    $('.datepicker').datepicker({
+        onSelect: function (selectedDate) {
+            dateInput.value = dayjs(selectedDate).format('M/D/YY') //when date is selected, fill the input form
+        }
+    })
+});
+
 
 function fetchWeather(city) {
     const geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
@@ -15,13 +26,12 @@ function fetchWeather(city) {
         .then(function (response) {
             return response.json();
         })
-        .then(function (lat_lon) {
+        .then(function (lat_lon) { //turn string into lat/lon coords
             const lat = lat_lon[0].lat;
             const lon = lat_lon[0].lon;
 
-            const currentWeatherApi = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${RfGyArBH}`;
+            const currentWeatherApi = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${RfGyArBH}`; //use lat and lon to fetch current weather
 
-            // fetch current weather condition for city
             fetch(currentWeatherApi)
                 .then(function (response) {
                     return response.json();
@@ -46,7 +56,7 @@ function displayWeather(currentWeatherArray, city) {
 function displayEvents(eventsArray) {
     listedEventsEl.innerHTML = ""; //clear the list (in case of multiple searches)
 
-    for (let i = 0; i < eventsArray.length; i++) { 
+    for (let i = 0; i < eventsArray.length; i++) {
         const eventLiEl = document.createElement("li")
         const eventDate = dayjs(eventsArray[i].dates.start.dateTime).format("M/D");
         const eventTime = dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A");
@@ -76,8 +86,13 @@ function displayEvents(eventsArray) {
 };
 
 function fetchTicketmaster(city) {
+
+
+    let endOfDay = dayjs(dateInput.value).endOf("day").format();
+    let selectedDayAndTime = dayjs(dateInput.value).format();
+
     //fetch ticketmaster API
-    const ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=music&startDateTime=${currentDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`;
+    const ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=music&startDateTime=${selectedDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`;
 
     fetch(ticketmasterApi)
         .then(function (response) {
@@ -113,11 +128,3 @@ function moreInfo() {
 const searchButton = document.querySelector("#search-button")
 
 searchButton.addEventListener("click", searchCity); //search button event listener 
-
-$(document).ready(function(){
-    $('.modal').modal();
-  });
-
-
-
-
