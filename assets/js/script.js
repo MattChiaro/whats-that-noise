@@ -72,6 +72,7 @@ function displayEvents(eventsArray) {
         // console.log(dayjs(eventsArray[i].dates.start.dateTime).format("M/D")); //date
         // console.log(dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A")); //time
     }
+
 };
 
 function fetchTicketmaster(city) {
@@ -98,14 +99,20 @@ function searchCity() {
 }
 
 function moreInfo() {
-    console.log("clicked");
-}
 
+    document.querySelector('#modal1').innerHTML = `<div class="modal-content">
+    <h4 id="modal-header">Hello</h4>
+    <p>The Modal is working</p>
+    <p>But how do I parse the data into it</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>`
+}
 
 const searchButton = document.querySelector("#search-button")
 
 searchButton.addEventListener("click", searchCity); //search button event listener 
-
 
 $(document).ready(function(){
     $('.modal').modal();
