@@ -8,6 +8,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -27,11 +28,19 @@
     <div class="col s4">
       <form action="#">
         <div class="file-field input-field">
-          <div id="search-button" class="btn" type="submit">
-            <span>Search</span>
-          </div>
           <div class="file-path-wrapper">
             <input id="search-input" class="search-input" type="text" placeholder="whats happening in...">
+          </div>
+        </div>
+        <div class="file-field input-field">
+          <div id="search-button" class="datepicker btn" type="submit">
+            <i class="material-icons">date_range</i>
+          </div>
+          <div class="file-path-wrapper">
+            <input type="text" placeholder="on...">
+            <div id="search-button" class="btn" type="submit">
+              <span>Search</span>
+            </div>
           </div>
         </div>
       </form>
@@ -46,8 +55,8 @@
       </div>
       <!-- Listed Events -->
     </div>
-      <ul class="collection eventlist col s8" id="listed-events">
-      </ul>
+    <ul class="collection eventlist col s8" id="listed-events">
+    </ul>
 
     <!-- <div class="row teal">
         <div class="col">

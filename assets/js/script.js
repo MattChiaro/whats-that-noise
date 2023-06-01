@@ -103,4 +103,8 @@ const searchButton = document.querySelector("#search-button")
 
 searchButton.addEventListener("click", searchCity);
 
+$(document).ready(function(){
+    $('.datepicker').datepicker();
+  });
+
 
