@@ -1,13 +1,27 @@
 //housekeeping
-
 const searchInput = document.querySelector("#search-input");
 const aTgFdFgW = "EBLlYPmsJS0INYOanmR3K7FG7BKYE1eg"; //ticketmaster key
 const RfGyArBH = 'f143fe1fd933ca340292950f394916e2'; //openweather key
-const currentDay = dayjs();
-const endOfDay = currentDay.endOf("day").format();
-const currentDayAndTime = dayjs().format();
+const dateInput = document.querySelector("#date-selector");
+
+dateInput.value = dayjs().format('M/D/YY'); //set date input to current day
+
+let endOfDay = dayjs(dateInput.value).endOf("day").format();
+let currentDayAndTime = dayjs(dateInput.value).format();
+
 const currentWeatherEl = document.getElementById("weatherinfo");
 const listedEventsEl = document.getElementById("listed-events");
+
+
+$(document).ready(function () { //modal and datepicker initialization
+    $('.modal').modal();
+    $('.datepicker').datepicker({
+        onSelect: function (selectedDate) {
+            dateInput.value = dayjs(selectedDate).format('M/D/YY')
+        }
+    })
+});
+
 
 function fetchWeather(city) {
     const geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
@@ -46,7 +60,7 @@ function displayWeather(currentWeatherArray, city) {
 function displayEvents(eventsArray) {
     listedEventsEl.innerHTML = ""; //clear the list (in case of multiple searches)
 
-    for (let i = 0; i < eventsArray.length; i++) { 
+    for (let i = 0; i < eventsArray.length; i++) {
         const eventLiEl = document.createElement("li")
         const eventDate = dayjs(eventsArray[i].dates.start.dateTime).format("M/D");
         const eventTime = dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A");
@@ -76,6 +90,11 @@ function displayEvents(eventsArray) {
 };
 
 function fetchTicketmaster(city) {
+
+
+    let endOfDay = dayjs(dateInput.value).endOf("day").format();
+    let currentDayAndTime = dayjs(dateInput.value).format();
+
     //fetch ticketmaster API
     const ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=music&startDateTime=${currentDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`;
 
@@ -114,14 +133,14 @@ const searchButton = document.querySelector("#search-button")
 
 searchButton.addEventListener("click", searchCity); //search button event listener 
 
-$(document).ready(function(){
+$(document).ready(function () { //modal and datepicker initialization
     $('.modal').modal();
-  });
-
-
-
-$(document).ready(function(){
-    $('.datepicker').datepicker();
-  });
-
+    $('.datepicker').datepicker({
+        onSelect: function (selectedDate) {
+            dateInput.value = dayjs(selectedDate).format('M/D/YY')
+            let endOfDay = dayjs(selectedDate).endOf("day").format()
+            let currentDayAndTime = dayjs(selectedDate).format()
+        }
+    })
+});
 
