@@ -59,7 +59,7 @@ function displayEvents(eventsArray) {
             <span class="title">${eventsArray[i].name}</span>
             <p>${eventsArray[i]._embedded.venues[0].name}</p>
             <p>${eventDate} // ${eventTime} </p>
-            <a href="#modal1" class="secondary-content modal-trigger btn">More Info</a>`
+            <button href="#modal1" class="secondary-content modal-trigger btn" onclick="moreInfo()">More Info</button>`
 
         listedEventsEl.appendChild(eventLiEl);
 
@@ -97,15 +97,20 @@ function searchCity() {
     fetchTicketmaster(city);
 }
 
+function moreInfo() {
+    console.log("clicked");
+}
 
 
 const searchButton = document.querySelector("#search-button")
 
-searchButton.addEventListener("click", searchCity);
+searchButton.addEventListener("click", searchCity); //search button event listener 
+
 
 $(document).ready(function(){
     $('.modal').modal();
   });
+
 
 
 
