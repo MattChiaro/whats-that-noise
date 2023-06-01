@@ -7,7 +7,8 @@ const currentDay = dayjs();
 const endOfDay = currentDay.endOf("day").format();
 const currentDayAndTime = dayjs().format();
 const currentWeatherEl = document.getElementById("weatherinfo");
-// fetch geo coordinates
+const listedEventsEl = document.getElementById("listed-events");
+const eventLiEl = document.getElementById("event-list-item");
 
 function fetchWeather(city) {
     const geoApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
@@ -53,10 +54,28 @@ function fetchTicketmaster(city) {
             return response.json();
         })
         .then(function (data) {
-            // console.log(data); //log returned api 
-
             const eventsArray = data._embedded.events;
+
             for (let i = 0; i < eventsArray.length; i++) {
+                const eventLiEl = document.createElement("li")
+                const eventDate = dayjs(eventsArray[i].dates.start.dateTime).format("M/D");
+                const eventTime = dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A");
+
+                eventLiEl.className = "collection-item avatar";
+                eventLiEl.setAttribute("id", "event-list-item");
+                
+
+                eventLiEl.innerHTML = `<li class="collection-item avatar">
+                <img src="${eventsArray[i].images[0].url}" alt="artist image" class="circle">
+                <span class="title">${eventsArray[i].name}</span>
+                <p>${eventsArray[i]._embedded.venues[0].name}</p>
+                <p>${eventDate} // ${eventTime} </p>
+                <a href="#!" class="secondary-content"><i class="material-icons">Expand</i></a>
+              </li>`
+
+              listedEventsEl.appendChild(eventLiEl);
+
+
                 console.log(eventsArray[i].name); //event name
                 console.log(eventsArray[i]._embedded.venues[0].name); //venue name
                 console.log(eventsArray[i]._embedded.venues[0].address.line1); //venue address
