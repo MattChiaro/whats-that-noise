@@ -3,8 +3,10 @@ const searchInput = document.querySelector("#search-input");
 const aTgFdFgW = "EBLlYPmsJS0INYOanmR3K7FG7BKYE1eg"; //ticketmaster key
 const RfGyArBH = 'f143fe1fd933ca340292950f394916e2'; //openweather key
 const dateInput = document.querySelector("#date-selector");
+const segmentInput = document.querySelector("#segment-selector");
 
 dateInput.value = dayjs().format('M/D/YY'); //set date input to current day
+
 
 const currentWeatherEl = document.getElementById("weatherinfo");
 const listedEventsEl = document.getElementById("listed-events");
@@ -12,12 +14,13 @@ const listedEventsEl = document.getElementById("listed-events");
 
 $(document).ready(function () { //modal and datepicker initialization
     $('.modal').modal();
+    $('select').formSelect();
     $('.datepicker').datepicker({
         onSelect: function (selectedDate) {
             dateInput.value = dayjs(selectedDate).format('M/D/YY') //when date is selected, fill the input form
         }
     })
-});
+})
 
 
 function fetchWeather(city) { //fetch weather data from openweather
@@ -90,9 +93,11 @@ function fetchTicketmaster(city) {
 
     let endOfDay = dayjs(dateInput.value).endOf("day").format();
     let selectedDayAndTime = dayjs(dateInput.value).format();
+    let segmentName = "music"
 
     //fetch ticketmaster API
-    const ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=music&startDateTime=${selectedDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`;
+        let ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=${segmentName}&startDateTime=${selectedDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`
+
 
     fetch(ticketmasterApi)
         .then(function (response) {
