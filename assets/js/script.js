@@ -124,36 +124,26 @@ function searchCity() {
 
 function moreInfo(selectedEvent, i) { //display modal with details from event clicked
 
-    document.querySelector('#modal1').innerHTML = `<div class="modal-content">
-    <h4 id="modal-header">${selectedEvent.name}</h4>
-    <p><i>Venue: </i>${selectedEvent._embedded.venues[0].name}</p>
-    <p><i>${selectedEvent._embedded.venues[0].address.line1}</i></p>
-    <p><i>Date: </i>${dayjs(selectedEvent.dates.start.dateTime).format("M/D/YY")} - ${dayjs(selectedEvent.dates.start.dateTime).format("h:mm A")} </p>
-  </div>
-  <div class="modal-footer">
-  <button id="save-event-${i}" class="waves-effect waves-green btn">Save Event</button>
-  <a href="${selectedEvent.url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a>
-    <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
-  </div>`
+    document.querySelector('#modal1').innerHTML = 
+    `<div class= "container">
+        <div class="row">
+            <div class= "col s8">
+                <div class="modal-content">
+                <h4 id="modal-header">${selectedEvent.name}</h4>
+                <p><i>Venue: </i>${selectedEvent._embedded.venues[0].name}</p>
+                <p><i>${selectedEvent._embedded.venues[0].address.line1}</i></p>
+                <p><i>Date: </i>${dayjs(selectedEvent.dates.start.dateTime).format("M/D/YY")} - ${dayjs(selectedEvent.dates.start.dateTime).format("h:mm A")} </p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button id="save-event-${i}" class="waves-effect waves-green btn">Save Event</button>
+        <a href="${selectedEvent.url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
+        </div>
+    </div>`
+
 }
-
-listedEventsEl.addEventListener("click", function (event) { //listen for clicks on each event in the list
-    for (let i = 0; i < eArray.length; i++) {
-        if (i == event.target.id) {
-            moreInfo(eArray[i], i);
-        }
-
-    }
-})
-
-document.querySelector("#modal1").addEventListener("click", function (event) { //listen for clicks on save event button
-    const idArray = event.target.id.split("-")
-    const i = idArray[2]
-    saveEvent(eArray, i)
-
-
-        ;
-})
 
 function saveEvent(eArray, i) { //save event to local storage
 
@@ -173,3 +163,21 @@ function saveEvent(eArray, i) { //save event to local storage
 
 }
 
+
+listedEventsEl.addEventListener("click", function (event) { //listen for clicks on each event in the list
+    for (let i = 0; i < eArray.length; i++) {
+        if (i == event.target.id) {
+            moreInfo(eArray[i], i);
+        }
+
+    }
+})
+
+document.querySelector("#modal1").addEventListener("click", function (event) { //listen for clicks on save event button
+    const idArray = event.target.id.split("-")
+    const i = idArray[2]
+    saveEvent(eArray, i)
+
+
+        ;
+})
