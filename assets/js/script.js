@@ -8,11 +8,9 @@ const endOfDay = currentDay.endOf("day").format();
 const currentDayAndTime = dayjs().format();
 const currentWeatherEl = document.getElementById("weatherinfo");
 const listedEventsEl = document.getElementById("listed-events");
-const eventLiEl = document.getElementById("event-list-item");
 
 function fetchWeather(city) {
     const geoApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
-
     fetch(geoApi)
         .then(function (response) {
             return response.json();
@@ -45,6 +43,38 @@ function displayWeather(currentWeatherArray, city) {
 <img src="${iconUrl}">`
 }
 
+function displayEvents(eventsArray) {
+    listedEventsEl.innerHTML = ""; //clear the list (in case of multiple searches)
+
+    for (let i = 0; i < eventsArray.length; i++) { 
+        const eventLiEl = document.createElement("li")
+        const eventDate = dayjs(eventsArray[i].dates.start.dateTime).format("M/D");
+        const eventTime = dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A");
+
+        eventLiEl.className = "collection-item avatar";
+        eventLiEl.setAttribute("id", "event-list-item");
+
+        eventLiEl.innerHTML = `<li class="collection-item avatar">
+            <img src="${eventsArray[i].images[0].url}" alt="artist image" class="circle">
+            <span class="title">${eventsArray[i].name}</span>
+            <p>${eventsArray[i]._embedded.venues[0].name}</p>
+            <p>${eventDate} // ${eventTime} </p>
+            <a href="#!" class="secondary-content"><i class="material-icons">Expand</i></a>
+          </li>`
+
+        listedEventsEl.appendChild(eventLiEl);
+
+
+        // console.log(eventsArray[i].name); //event name
+        // console.log(eventsArray[i]._embedded.venues[0].name); //venue name
+        // console.log(eventsArray[i]._embedded.venues[0].address.line1); //venue address
+        // console.log(eventsArray[i].images[0].url); //artist image
+        // console.log(eventsArray[i].url); //ticket url
+        // console.log(dayjs(eventsArray[i].dates.start.dateTime).format("M/D")); //date
+        // console.log(dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A")); //time
+    }
+};
+
 function fetchTicketmaster(city) {
     //fetch ticketmaster API
     const ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=music&startDateTime=${currentDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`;
@@ -55,36 +85,9 @@ function fetchTicketmaster(city) {
         })
         .then(function (data) {
             const eventsArray = data._embedded.events;
+            displayEvents(eventsArray);
+        })
 
-            for (let i = 0; i < eventsArray.length; i++) {
-                const eventLiEl = document.createElement("li")
-                const eventDate = dayjs(eventsArray[i].dates.start.dateTime).format("M/D");
-                const eventTime = dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A");
-
-                eventLiEl.className = "collection-item avatar";
-                eventLiEl.setAttribute("id", "event-list-item");
-                
-
-                eventLiEl.innerHTML = `<li class="collection-item avatar">
-                <img src="${eventsArray[i].images[0].url}" alt="artist image" class="circle">
-                <span class="title">${eventsArray[i].name}</span>
-                <p>${eventsArray[i]._embedded.venues[0].name}</p>
-                <p>${eventDate} // ${eventTime} </p>
-                <a href="#!" class="secondary-content"><i class="material-icons">Expand</i></a>
-              </li>`
-
-              listedEventsEl.appendChild(eventLiEl);
-
-
-                console.log(eventsArray[i].name); //event name
-                console.log(eventsArray[i]._embedded.venues[0].name); //venue name
-                console.log(eventsArray[i]._embedded.venues[0].address.line1); //venue address
-                console.log(eventsArray[i].images[0].url); //artist image
-                console.log(eventsArray[i].url); //ticket url
-                console.log(dayjs(eventsArray[i].dates.start.dateTime).format("M/D")); //date
-                console.log(dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A")); //time
-            }
-        });
 }
 
 function searchCity() {
