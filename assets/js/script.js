@@ -119,8 +119,12 @@ function searchCity() {
 
     let city = searchInput.value.trim()
 
-    if (city === "") {
-        alert("Please enter a city")
+    if (city === "") { //if no city entered, trigger modal
+        $('#no-city-input').modal('open');
+        return;
+    } else if (dateInput.value === "") { //if no date entered, trigger modal and then auto-fill date input with current date
+        $('#no-date-input').modal('open');
+        dateInput.value = dayjs().format('M/D/YY')
         return;
     }
 
