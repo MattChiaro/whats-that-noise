@@ -52,16 +52,17 @@ function displayWeather(currentWeatherArray, city) { //display dynamically
 <p>Humidity: ${currentWeatherArray.main.humidity}%</p>
 <img src="${iconUrl}">`
 }
-
+var eArray = [];
 function displayEvents(eventsArray) {
     listedEventsEl.innerHTML = ""; //clear the list (in case of multiple searches)
-
+eArray = eventsArray;
     for (let i = 0; i < eventsArray.length; i++) {
         const eventLiEl = document.createElement("li")
         const eventDate = dayjs(eventsArray[i].dates.start.dateTime).format("M/D");
         const eventTime = dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A");
-        const selectedEvent = eventsArray[i];
-        console.log(selectedEvent);
+       const selectedEvent = eventsArray[i];
+        //const stringifiedEvent = JSON.stringify(selectedEvent);
+        //console.log(stringifiedEvent);
 
         eventLiEl.className = "collection-item avatar";
         eventLiEl.setAttribute("id", "event-list-item");
@@ -71,7 +72,7 @@ function displayEvents(eventsArray) {
             <span class="title">${eventsArray[i].name}</span>
             <p>${eventsArray[i]._embedded.venues[0].name}</p>
             <p>${eventDate} // ${eventTime} </p>
-            <button href="#modal1" class="secondary-content modal-trigger btn" onclick="${moreInfo(selectedEvent)}">More Info</button>`
+            <button href="#modal1" id=${i} class="secondary-content modal-trigger btn" >More Info</button>`
 
         listedEventsEl.appendChild(eventLiEl);
 
@@ -86,6 +87,8 @@ function displayEvents(eventsArray) {
     }
 
 };
+
+
 
 function fetchTicketmaster(city) {
 
@@ -115,18 +118,26 @@ function searchCity() {
     fetchTicketmaster(city);
 }
 
-function moreInfo(selectedEvent) {
+function moreInfo(selectedEvent) { //display modal with details from event clicked
 
     document.querySelector('#modal1').innerHTML = `<div class="modal-content">
     <h4 id="modal-header">${selectedEvent.name}</h4>
-    <p>The Modal is working</p>
-    <p>But how do I parse the data into it</p>
+    <p><i>Venue: </i>${selectedEvent._embedded.venues[0].name}</p>
+    <p><i>${selectedEvent._embedded.venues[0].address.line1}</i></p>
+    <p><i>Date: </i>${dayjs(selectedEvent.dates.start.dateTime).format("M/D/YY")} - ${dayjs(selectedEvent.dates.start.dateTime).format("h:mm A")} </p>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  <a href="${selectedEvent.url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a>
+    <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
   </div>`
 }
 
-const searchButton = document.querySelector("#search-button")
+listedEventsEl.addEventListener("click", function (event) { //listen for clicks on each event in the list
+    for (let i = 0; i < eArray.length; i++) {
+       if(i == event.target.id){
+          moreInfo(eArray[i]);
+       }
+        
+    }
+})
 
-searchButton.addEventListener("click", searchCity); //search button event listener 
