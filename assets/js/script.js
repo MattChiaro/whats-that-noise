@@ -59,7 +59,7 @@ function displayEvents(eventsArray) {
             <span class="title">${eventsArray[i].name}</span>
             <p>${eventsArray[i]._embedded.venues[0].name}</p>
             <p>${eventDate} // ${eventTime} </p>
-            <a href="#!" class="secondary-content"><i class="material-icons">Expand</i></a>`
+            <a href="#modal1" class="secondary-content modal-trigger btn">More Info</a>`
 
         listedEventsEl.appendChild(eventLiEl);
 
@@ -102,5 +102,10 @@ function searchCity() {
 const searchButton = document.querySelector("#search-button")
 
 searchButton.addEventListener("click", searchCity);
+
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+
 
 
