@@ -79,15 +79,6 @@ function displayEvents(eventsArray) {
             <button href="#modal1" id=${i} class="secondary-content modal-trigger btn" >More Info</button>`
 
         listedEventsEl.appendChild(eventLiEl);
-
-
-        // console.log(eventsArray[i].name); //event name
-        // console.log(eventsArray[i]._embedded.venues[0].name); //venue name
-        // console.log(eventsArray[i]._embedded.venues[0].address.line1); //venue address
-        // console.log(eventsArray[i].images[0].url); //artist image
-        // console.log(eventsArray[i].url); //ticket url
-        // console.log(dayjs(eventsArray[i].dates.start.dateTime).format("M/D")); //date
-        // console.log(dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A")); //time
     }
 
 };
