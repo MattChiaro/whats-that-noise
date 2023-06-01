@@ -103,6 +103,3 @@ function searchCity() {
 document.querySelector("#search-button").addEventListener("click", searchCity);
 
 
-$(document).ready(function () {
-    $('.collapsible').collapsible();
-});
