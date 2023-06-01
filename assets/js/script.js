@@ -20,7 +20,7 @@ $(document).ready(function () { //modal and datepicker initialization
 });
 
 
-function fetchWeather(city) {
+function fetchWeather(city) { //fetch weather data from openweather
     const geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
     fetch(geoApi)
         .then(function (response) {
@@ -43,7 +43,7 @@ function fetchWeather(city) {
         });
 }
 
-function displayWeather(currentWeatherArray, city) {
+function displayWeather(currentWeatherArray, city) { //display dynamically
     var iconUrl = `https://openweathermap.org/img/w/${currentWeatherArray.weather[0].icon}.png`;
     document.querySelector('#current-weather-title').textContent = `Current weather in ${city}:`;
     currentWeatherEl.innerHTML = `<p>${currentWeatherArray.dt_txt || new Date().toLocaleDateString()}</p>
@@ -60,6 +60,8 @@ function displayEvents(eventsArray) {
         const eventLiEl = document.createElement("li")
         const eventDate = dayjs(eventsArray[i].dates.start.dateTime).format("M/D");
         const eventTime = dayjs(eventsArray[i].dates.start.dateTime).format("h:mm A");
+        const selectedEvent = eventsArray[i];
+        console.log(selectedEvent);
 
         eventLiEl.className = "collection-item avatar";
         eventLiEl.setAttribute("id", "event-list-item");
@@ -69,7 +71,7 @@ function displayEvents(eventsArray) {
             <span class="title">${eventsArray[i].name}</span>
             <p>${eventsArray[i]._embedded.venues[0].name}</p>
             <p>${eventDate} // ${eventTime} </p>
-            <button href="#modal1" class="secondary-content modal-trigger btn" onclick="moreInfo()">More Info</button>`
+            <button href="#modal1" class="secondary-content modal-trigger btn" onclick="${moreInfo(selectedEvent)}">More Info</button>`
 
         listedEventsEl.appendChild(eventLiEl);
 
@@ -113,10 +115,10 @@ function searchCity() {
     fetchTicketmaster(city);
 }
 
-function moreInfo() {
+function moreInfo(selectedEvent) {
 
     document.querySelector('#modal1').innerHTML = `<div class="modal-content">
-    <h4 id="modal-header">Hello</h4>
+    <h4 id="modal-header">${selectedEvent.name}</h4>
     <p>The Modal is working</p>
     <p>But how do I parse the data into it</p>
   </div>
