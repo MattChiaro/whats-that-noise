@@ -10,7 +10,7 @@ const currentWeatherEl = document.getElementById("weatherinfo");
 const listedEventsEl = document.getElementById("listed-events");
 
 function fetchWeather(city) {
-    const geoApi = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
+    const geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
     fetch(geoApi)
         .then(function (response) {
             return response.json();
@@ -34,7 +34,7 @@ function fetchWeather(city) {
 }
 
 function displayWeather(currentWeatherArray, city) {
-    var iconUrl = `http://openweathermap.org/img/w/${currentWeatherArray.weather[0].icon}.png`;
+    var iconUrl = `https://openweathermap.org/img/w/${currentWeatherArray.weather[0].icon}.png`;
     document.querySelector('#current-weather-title').textContent = `Current weather in ${city}:`;
     currentWeatherEl.innerHTML = `<p>${currentWeatherArray.dt_txt || new Date().toLocaleDateString()}</p>
 <p>Temp: ${currentWeatherArray.main.temp} °F</p>
@@ -54,13 +54,12 @@ function displayEvents(eventsArray) {
         eventLiEl.className = "collection-item avatar";
         eventLiEl.setAttribute("id", "event-list-item");
 
-        eventLiEl.innerHTML = `<li class="collection-item avatar">
+        eventLiEl.innerHTML = `
             <img src="${eventsArray[i].images[0].url}" alt="artist image" class="circle">
             <span class="title">${eventsArray[i].name}</span>
             <p>${eventsArray[i]._embedded.venues[0].name}</p>
             <p>${eventDate} // ${eventTime} </p>
-            <a href="#!" class="secondary-content"><i class="material-icons">Expand</i></a>
-          </li>`
+            <a href="#!" class="secondary-content"><i class="material-icons">Expand</i></a>`
 
         listedEventsEl.appendChild(eventLiEl);
 
@@ -100,7 +99,9 @@ function searchCity() {
 
 
 
-document.querySelector("#search-button").addEventListener("click", searchCity);
+const searchButton = document.querySelector("#search-button")
+
+searchButton.addEventListener("click", searchCity);
 
 
 $(document).ready(function () {
