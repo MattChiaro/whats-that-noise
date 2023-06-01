@@ -151,8 +151,8 @@ document.querySelector("#modal1").addEventListener("click", function (event) { /
 
 function saveEvent(eArray, i) { //save event to local storage
 
-    let counter = localStorage.length
-    
+    // let counter = localStorage.length
+    var eventList = JSON.parse(localStorage.getItem('savedEvents')) || [];
     const event = {
         name: `${eArray[i].name}`,
     venue: `${eArray[i]._embedded.venues[0].name}`,
@@ -161,9 +161,9 @@ function saveEvent(eArray, i) { //save event to local storage
     time: `${dayjs(eArray[i].dates.start.dateTime).format("h:mm A")}`,
     url: `${eArray[i].url}`
     }
-
-    localStorage.setItem(`${counter}`, JSON.stringify(event)); //saved item is (counterVal, event object)
-    counter++; //increment counter for next save
+eventList.push(event);
+    localStorage.setItem(`savedEvents`, JSON.stringify(eventList)); //saved item is (counterVal, event object)
+    // counter++; //increment counter for next save
 
 }
 
