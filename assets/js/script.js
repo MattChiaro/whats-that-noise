@@ -20,7 +20,7 @@ $(document).ready(function () { //modal and datepicker initialization
 });
 
 
-function fetchWeather(city) {
+function fetchWeather(city) { //fetch weather data from openweather
     const geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
     fetch(geoApi)
         .then(function (response) {
@@ -43,7 +43,7 @@ function fetchWeather(city) {
         });
 }
 
-function displayWeather(currentWeatherArray, city) {
+function displayWeather(currentWeatherArray, city) { //display dynamically
     var iconUrl = `https://openweathermap.org/img/w/${currentWeatherArray.weather[0].icon}.png`;
     document.querySelector('#current-weather-title').textContent = `Current weather in ${city}:`;
     currentWeatherEl.innerHTML = `<p>${currentWeatherArray.dt_txt || new Date().toLocaleDateString()}</p>
@@ -52,10 +52,11 @@ function displayWeather(currentWeatherArray, city) {
 <p>Humidity: ${currentWeatherArray.main.humidity}%</p>
 <img src="${iconUrl}">`
 }
+var eArray = [];
 
 function displayEvents(eventsArray) {
     listedEventsEl.innerHTML = ""; //clear the list (in case of multiple searches)
-
+    eArray = eventsArray;
     for (let i = 0; i < eventsArray.length; i++) {
         const eventLiEl = document.createElement("li")
         const eventDate = dayjs(eventsArray[i].dates.start.dateTime).format("M/D");
@@ -69,7 +70,7 @@ function displayEvents(eventsArray) {
             <span class="title">${eventsArray[i].name}</span>
             <p>${eventsArray[i]._embedded.venues[0].name}</p>
             <p>${eventDate} // ${eventTime} </p>
-            <button href="#modal1" class="secondary-content modal-trigger btn" onclick="moreInfo()">More Info</button>`
+            <button href="#modal1" id=${i} class="secondary-content modal-trigger btn" >More Info</button>`
 
         listedEventsEl.appendChild(eventLiEl);
 
@@ -84,6 +85,8 @@ function displayEvents(eventsArray) {
     }
 
 };
+
+
 
 function fetchTicketmaster(city) {
 
@@ -113,18 +116,53 @@ function searchCity() {
     fetchTicketmaster(city);
 }
 
-function moreInfo() {
+function moreInfo(selectedEvent,i) { //display modal with details from event clicked
 
     document.querySelector('#modal1').innerHTML = `<div class="modal-content">
-    <h4 id="modal-header">Hello</h4>
-    <p>The Modal is working</p>
-    <p>But how do I parse the data into it</p>
+    <h4 id="modal-header">${selectedEvent.name}</h4>
+    <p><i>Venue: </i>${selectedEvent._embedded.venues[0].name}</p>
+    <p><i>${selectedEvent._embedded.venues[0].address.line1}</i></p>
+    <p><i>Date: </i>${dayjs(selectedEvent.dates.start.dateTime).format("M/D/YY")} - ${dayjs(selectedEvent.dates.start.dateTime).format("h:mm A")} </p>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+  <button id="save-event-${i}" class="waves-effect waves-green btn">Save Event</button>
+  <a href="${selectedEvent.url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a>
+    <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
   </div>`
 }
 
-const searchButton = document.querySelector("#search-button")
+listedEventsEl.addEventListener("click", function (event) { //listen for clicks on each event in the list
+    for (let i = 0; i < eArray.length; i++) {
+        if (i == event.target.id) {
+            moreInfo(eArray[i],i);
+        }
 
-searchButton.addEventListener("click", searchCity); //search button event listener 
+    }
+})
+
+document.querySelector("#modal1").addEventListener("click", function (event) { //listen for clicks on save event button
+    const idArray = event.target.id.split("-")
+    const i = idArray[2]
+    saveEvent(eArray, i)
+
+
+    ;
+})
+
+function saveEvent(eArray, i) { //save event to local storage
+    console.log("eArray", eArray[i])
+
+    const event = {
+        name: `${eArray[i].name}`,
+    venue: `${eArray[i]._embedded.venues[0].name}`,
+    address: `${eArray[i]._embedded.venues[0].address.line1}`,
+    date: `${dayjs(eArray[i].dates.start.dateTime).format("M/D/YY")}`,
+    time: `${dayjs(eArray[i].dates.start.dateTime).format("h:mm A")}`,
+    url: `${eArray[i].url}`
+    }
+
+    localStorage.setItem(`event${i}`, JSON.stringify(event));
+    
+
+}
+
