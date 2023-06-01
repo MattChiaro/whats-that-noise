@@ -44,14 +44,20 @@ function fetchWeather(city) { //fetch weather data from openweather
 }
 
 function displayWeather(currentWeatherArray, city) { //display dynamically
+
     var iconUrl = `https://openweathermap.org/img/w/${currentWeatherArray.weather[0].icon}.png`;
+
+    document.querySelector("#hidden-el").classList.remove('hide') //show box with weather info
+
     document.querySelector('#current-weather-title').textContent = `Current weather in ${city}:`;
+
     currentWeatherEl.innerHTML = `<p>${currentWeatherArray.dt_txt || new Date().toLocaleDateString()}</p>
-<p>Temp: ${currentWeatherArray.main.temp} °F</p>
-<p>Wind: ${currentWeatherArray.wind.speed} MPH</p>
-<p>Humidity: ${currentWeatherArray.main.humidity}%</p>
-<img src="${iconUrl}">`
+                                  <p>Temp: ${currentWeatherArray.main.temp} °F</p>
+                                  <p>Wind: ${currentWeatherArray.wind.speed} MPH</p>
+                                  <p>Humidity: ${currentWeatherArray.main.humidity}%</p>
+                                  <img src="${iconUrl}">`
 }
+
 var eArray = [];
 
 function displayEvents(eventsArray) {
@@ -116,25 +122,52 @@ function searchCity() {
     fetchTicketmaster(city);
 }
 
-function moreInfo(selectedEvent,i) { //display modal with details from event clicked
+function moreInfo(selectedEvent, i) { //display modal with details from event clicked
 
-    document.querySelector('#modal1').innerHTML = `<div class="modal-content">
-    <h4 id="modal-header">${selectedEvent.name}</h4>
-    <p><i>Venue: </i>${selectedEvent._embedded.venues[0].name}</p>
-    <p><i>${selectedEvent._embedded.venues[0].address.line1}</i></p>
-    <p><i>Date: </i>${dayjs(selectedEvent.dates.start.dateTime).format("M/D/YY")} - ${dayjs(selectedEvent.dates.start.dateTime).format("h:mm A")} </p>
-  </div>
-  <div class="modal-footer">
-  <button id="save-event-${i}" class="waves-effect waves-green btn">Save Event</button>
-  <a href="${selectedEvent.url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a>
-    <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
-  </div>`
+    document.querySelector('#modal1').innerHTML = 
+    `<div class= "container">
+        <div class="row">
+            <div class= "col s8">
+                <div class="modal-content">
+                <h4 id="modal-header">${selectedEvent.name}</h4>
+                <p><i>Venue: </i>${selectedEvent._embedded.venues[0].name}</p>
+                <p><i>${selectedEvent._embedded.venues[0].address.line1}</i></p>
+                <p><i>Date: </i>${dayjs(selectedEvent.dates.start.dateTime).format("M/D/YY")} - ${dayjs(selectedEvent.dates.start.dateTime).format("h:mm A")} </p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button id="save-event-${i}" class="waves-effect waves-green btn">Save Event</button>
+        <a href="${selectedEvent.url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
+        </div>
+    </div>`
+
 }
+
+function saveEvent(eArray, i) { //save event to local storage
+
+    // let counter = localStorage.length
+    var eventList = JSON.parse(localStorage.getItem('savedEvents')) || [];
+    const event = {
+        name: `${eArray[i].name}`,
+        venue: `${eArray[i]._embedded.venues[0].name}`,
+        address: `${eArray[i]._embedded.venues[0].address.line1}`,
+        date: `${dayjs(eArray[i].dates.start.dateTime).format("M/D/YY")}`,
+        time: `${dayjs(eArray[i].dates.start.dateTime).format("h:mm A")}`,
+        url: `${eArray[i].url}`
+    }
+    eventList.push(event);
+    localStorage.setItem(`savedEvents`, JSON.stringify(eventList)); //saved item is (counterVal, event object)
+    // counter++; //increment counter for next save
+
+}
+
 
 listedEventsEl.addEventListener("click", function (event) { //listen for clicks on each event in the list
     for (let i = 0; i < eArray.length; i++) {
         if (i == event.target.id) {
-            moreInfo(eArray[i],i);
+            moreInfo(eArray[i], i);
         }
 
     }
@@ -146,24 +179,5 @@ document.querySelector("#modal1").addEventListener("click", function (event) { /
     saveEvent(eArray, i)
 
 
-    ;
+        ;
 })
-
-function saveEvent(eArray, i) { //save event to local storage
-
-    // let counter = localStorage.length
-    var eventList = JSON.parse(localStorage.getItem('savedEvents')) || [];
-    const event = {
-        name: `${eArray[i].name}`,
-    venue: `${eArray[i]._embedded.venues[0].name}`,
-    address: `${eArray[i]._embedded.venues[0].address.line1}`,
-    date: `${dayjs(eArray[i].dates.start.dateTime).format("M/D/YY")}`,
-    time: `${dayjs(eArray[i].dates.start.dateTime).format("h:mm A")}`,
-    url: `${eArray[i].url}`
-    }
-eventList.push(event);
-    localStorage.setItem(`savedEvents`, JSON.stringify(eventList)); //saved item is (counterVal, event object)
-    // counter++; //increment counter for next save
-
-}
-
