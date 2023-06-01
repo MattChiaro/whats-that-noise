@@ -65,11 +65,6 @@ function displayWeather(currentWeatherArray, city) { //display dynamically
 var eArray = [];
 
 function displayEvents(eventsArray) {
-    if (eventsArray.length == 0) {
-        alert("No events found. Please try another search.")
-        return;
-    }
-
 
     listedEventsEl.innerHTML = ""; //clear the list (in case of multiple searches)
     eArray = eventsArray;
