@@ -10,3 +10,36 @@
 #hidden-el {
     min-width: 100%
 }
+
+.font-family {
+
+}
+
+.rock-salt {
+    font-family: 'Rock Salt', cursive;
+}
+
+.littleguy {
+    height: 70px;
+    width: 100px;
+    
+}
+
+.littleguy2 {
+    height: 70px;
+    width: 100px;
+    
+}
+
+.font1 {
+    font-family: 'Fugaz One', cursive;
+}
+
+.font2 {
+    font-family: 'Alkatra', cursive;
+}
+
+.trash {
+    float: right;
+}
+
