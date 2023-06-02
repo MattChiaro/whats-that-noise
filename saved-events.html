@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Whats That Noise?</title>
   <link rel="stylesheet" href="./assets/css/style.css">
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="shortcut icon" href="./assets/images/whatsthatnoise.png" type="image/x-icon">
@@ -23,33 +24,32 @@
 </head>
 
 <body>
-  <div class="row">  
-  <nav>
-        <div class="nav-wrapper col s12"> <img class="col littleguy" src="./assets/images/whatsthatnoise.png" alt="">
-          <a href="index.html" class="brand-logo rock-salt">Whats That Noise?</a> 
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="saved-events.html" class="rock-salt">Saved Events</a></li>
-            <li><a href="index.html" class="rock-salt">Home</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-      <div class="saved-row row">
-        <div class="col s6">  
-          <ul id= "savedeventsbox" class="collapsible">
-              </ul>
-                    
-        </div>
-        <div class="col s6">
-            <ul id="savedeventsbox2" class="collapsible">
-              </ul>
-        </div>
+  <div class="row col s12">
+    <nav class="cyan">
+      <div class="nav-wrapper col s12"> <img class="col littleguy" src="./assets/images/whatsthatnoise.png" alt="">
+        <a href="index.html" id="nav-font" class="brand-logo rock-salt">Whats That Noise?</a>
+        <ul id="nav-mobile" class="right">
+          <li><a href="index.html" id="s-font" class="rock-salt">Home</a></li>
+        </ul>
       </div>
-  
+    </nav>
+  </div>
+  <div class="saved-row row">
+    <div class="col s12 m6 l6">
+      <ul id="savedeventsbox" class="collapsible  s-event">
+      </ul>
 
-      <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-      <script src="./assets/js/savedEvents.js"></script>
-      
+    </div>
+    <div class="col s12 m6 l6">
+      <ul id="savedeventsbox2" class="collapsible">
+      </ul>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="./assets/js/savedEvents.js"></script>
+
 </body>
 
 </html>

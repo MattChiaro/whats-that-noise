@@ -21,29 +21,30 @@
 
 <body>
   <!-- nav bar -->
-  <nav>
-    <div class="nav-wrapper"> <img class="col littleguy" src="./assets/images/whatsthatnoise.png" alt="">
-      <a href="#" class="brand-logo rock-salt">Whats That Noise?</a> 
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="saved-events.html" class="rock-salt">Saved Events</a></li>
+  <nav class="cyan">
+    <div class="nav-wrapper col s12"> <img class="col littleguy" src="./assets/images/whatsthatnoise.png"
+        alt="Man with his hand to his ear listening.">
+      <a href="#" id="nav-font" class="brand-logo rock-salt">Whats That Noise?</a>
+      <ul class="right">
+        <li><a href="saved-events.html" id="s-font" class="rock-salt">Saved Events</a></li>
       </ul>
     </div>
   </nav>
-<!-- row -->
+  <!-- row -->
   <div class="row">
-    <div class="col s4">
+    <div class="col s12 m12 l4">
       <form action="#">
         <div class="file-field input-field">
-          <div class="btn">Whats That Noise in...</div>
+          <div class="cyan btn">Whats That Noise in...</div>
           <div class="file-path-wrapper">
             <input id="search-input" class="search-input" type="text" placeholder="City">
           </div>
         </div>
         <div class="file-field input-field">
-          <div id="cal-button" class="datepicker btn" type="submit">
-            <i class="material-icons">date_range</i>
+          <div id="cal-button" class="cyan datepicker btn" type="submit">
+            <i class="cyan material-icons">date_range</i>
           </div>
-          <div class="btn">On...</div>
+          <div class="cyan btn">On...</div>
           <div class="file-path-wrapper">
             <input id="date-selector" type="text" placeholder="MM/DD/YYYY">
           </div>
@@ -55,14 +56,14 @@
             <option value="sports">Sports</option>
             <option value="miscellaneous">Misc.</option>
           </select>
-          <div id="search-button" class="btn col s12" type="submit" onclick="searchCity()">
+          <div id="search-button" class="cyan btn col s12" type="submit" onclick="searchCity()">
             <span>Search!</span>
           </div>
         </div>
       </form>
 
-    
-      <div id="hidden-el" class="card blue-grey darken-1 hide col">
+
+      <div id="hidden-el" class="card blue-grey darken-1 hide col col s12 m12 l4">
         <div class="card-content white-text">
           <span class="card-title" id="currentweather">
             <h5 id="current-weather-title"></h5>
@@ -73,7 +74,7 @@
       </div>
       <!-- Listed Events -->
     </div>
-    <ul class="collection eventlist col s8" id="listed-events"></ul>
+    <ul class="z-depth-5 collection eventlist col s8" id="listed-events"></ul>
   </div>
 
 

@@ -2,44 +2,77 @@
     border: 1px red dotted;
 } */
 
+@media screen and (min-width: 700px) {
+  #nav-font {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 669px) {
+  #nav-font {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  #s-font {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 669px) {
+  #s-font {
+    font-size: 8px;
+  }
+}
 
 #cal-button {
-    float: right;
+  float: right;
 }
 
 #hidden-el {
-    min-width: 100%
+  min-width: 100%;
 }
 
 .font-family {
-
 }
 
 .rock-salt {
-    font-family: 'Rock Salt', cursive;
+  font-family: "Rock Salt", cursive;
 }
 
 .littleguy {
-    height: 70px;
-    width: 100px;
-    
+  height: 70px;
+  width: 100px;
 }
 
 .littleguy2 {
-    height: 70px;
-    width: 100px;
-    
+  height: 70px;
+  width: 100px;
 }
 
 .font1 {
-    font-family: 'Fugaz One', cursive;
+  font-family: "Fugaz One", cursive;
 }
 
 .font2 {
-    font-family: 'Alkatra', cursive;
+  font-family: "Alkatra", cursive;
 }
 
 .trash {
-    float: right;
+  float: right;
+}
+
+.datepicker-date-display {
+    background-color: #00bcd4 !important; 
+}
+
+.datepicker-cancel {
+    color: #00bcd4 !important;
+}
+
+.datepicker-done {
+    color: #00bcd4 !important;
+
 }
 
