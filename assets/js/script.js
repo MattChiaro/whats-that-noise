@@ -21,8 +21,13 @@ $(document).ready(function () { //modal and datepicker initialization
             dateInput.value = dayjs(selectedDate).format('M/D/YY') //when date is selected, fill the input form
         }
     })
-})
+    $('#checkbox').click(function () {  //'do not show again' checkbox functionality
+        if ($('#checkbox').is(':checked')) {
+            localStorage.setItem('FirstVisit', false);
+        }
+    })
 
+})
 
 function fetchWeather(city) { //fetch weather data from openweather
     const geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
@@ -88,8 +93,6 @@ function displayEvents(eventsArray) {
 
 };
 
-
-
 function fetchTicketmaster(city) {
 
 
@@ -99,8 +102,8 @@ function fetchTicketmaster(city) {
 
     //fetch ticketmaster API
 
-  
-        let ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=${segmentName}&startDateTime=${selectedDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`
+
+    let ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=${segmentName}&startDateTime=${selectedDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`
 
 
 
@@ -134,8 +137,8 @@ function searchCity() {
 
 function moreInfo(selectedEvent, i) { //display modal with details from event clicked
 
-    document.querySelector('#modal1').innerHTML = 
-    `<div class= "container">
+    document.querySelector('#modal1').innerHTML =
+        `<div class= "container">
         <div class="row">
             <div class= "col s8">
                 <div class="modal-content">
@@ -147,17 +150,17 @@ function moreInfo(selectedEvent, i) { //display modal with details from event cl
             </div>
         </div>
         <div class="modal-footer">
-        <button id="save-event-${i}" class="cyan waves-effect waves-green btn">Save Event</button>
+        <button id="save-event-${i}" class="cyan waves-effect waves-green btn save-event-button">Save Event</button>
         <a href="${selectedEvent.url}" target="_blank" class="cyan waves-effect waves-green btn">Get Tickets</a>
         <a href="#!" class="cyan modal-close waves-effect waves-green btn">Close</a>
         </div>
     </div>`
 
+
 }
 
 function saveEvent(eArray, i) { //save event to local storage
 
-    // let counter = localStorage.length
     var eventList = JSON.parse(localStorage.getItem('savedEvents')) || [];
     const event = {
         name: `${eArray[i].name}`,
@@ -167,11 +170,38 @@ function saveEvent(eArray, i) { //save event to local storage
         time: `${dayjs(eArray[i].dates.start.dateTime).format("h:mm A")}`,
         url: `${eArray[i].url}`
     }
-    eventList.push(event);
-    localStorage.setItem(`savedEvents`, JSON.stringify(eventList)); //saved item is (counterVal, event object)
-    // counter++; //increment counter for next save
 
-}
+    // if (eventList.some(e=> event.name === `${eArray[i].name}`)) {  //prevent dupes
+    //     $('#event-already-saved').modal('open');
+    // } else {
+    //     eventList.push(event);
+    // }
+
+    if (eventList.length > 0) {
+        var isThere = false;
+        for (let i = 0; i < eventList.length; i++) {
+            if (eventList[i].name === event.name) {
+                isThere = !isThere;
+            }
+            else {
+                isThere = !(!isThere)
+            }
+            
+        }
+        if (isThere === false) {
+            eventList.push(event);
+            localStorage.setItem(`savedEvents`, JSON.stringify(eventList));
+        } else {
+            $('#event-already-saved').modal('open')
+
+        }
+    } else {
+        eventList.push(event);
+        localStorage.setItem(`savedEvents`, JSON.stringify(eventList));
+    }
+
+   
+} //saved item is (counterVal, event object)
 
 
 listedEventsEl.addEventListener("click", function (event) { //listen for clicks on each event in the list
@@ -185,7 +215,7 @@ listedEventsEl.addEventListener("click", function (event) { //listen for clicks 
 
 document.querySelector("#modal1").addEventListener("click", function (event) { //listen for clicks on save event button
     const idArray = event.target.id.split("-")
-    event.target.textContent = "saved"
+    document.querySelector(".save-event-button").textContent = "saved"
     const i = idArray[2]
     saveEvent(eArray, i)
 
@@ -193,15 +223,11 @@ document.querySelector("#modal1").addEventListener("click", function (event) { /
         ;
 })
 
-$('#checkbox').click(function () {  //'do not show again' checkbox functionality
-    if ($('#checkbox').is(':checked')) {
-        localStorage.setItem('FirstVisit', false);   
-    }
-})
 
-window.onload = function () {
+
+window.onload = function () { //check if first visit, if so, trigger modal
     if (localStorage.getItem('FirstVisit') !== 'false') {
         $('#page-load-modal').modal('open')
-    } 
-        
-    } //check if first visit, if so, trigger modal
+    }
+
+} 
