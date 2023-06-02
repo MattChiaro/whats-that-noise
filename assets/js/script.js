@@ -81,7 +81,7 @@ function displayEvents(eventsArray) {
             <span class="title">${eventsArray[i].name}</span>
             <p>${eventsArray[i]._embedded.venues[0].name}</p>
             <p>${eventDate} // ${eventTime} </p>
-            <button href="#modal1" id=${i} class="secondary-content modal-trigger btn" >More Info</button>`
+            <button href="#modal1" id=${i} class="cyan secondary-content modal-trigger btn" >More Info</button>`
 
         listedEventsEl.appendChild(eventLiEl);
     }
@@ -147,9 +147,9 @@ function moreInfo(selectedEvent, i) { //display modal with details from event cl
             </div>
         </div>
         <div class="modal-footer">
-        <button id="save-event-${i}" class="waves-effect waves-green btn">Save Event</button>
-        <a href="${selectedEvent.url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a>
-        <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
+        <button id="save-event-${i}" class="cyan waves-effect waves-green btn">Save Event</button>
+        <a href="${selectedEvent.url}" target="_blank" class="cyan waves-effect waves-green btn">Get Tickets</a>
+        <a href="#!" class="cyan modal-close waves-effect waves-green btn">Close</a>
         </div>
     </div>`
 
