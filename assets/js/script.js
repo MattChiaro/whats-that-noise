@@ -21,8 +21,13 @@ $(document).ready(function () { //modal and datepicker initialization
             dateInput.value = dayjs(selectedDate).format('M/D/YY') //when date is selected, fill the input form
         }
     })
-})
+    $('#checkbox').click(function () {  //'do not show again' checkbox functionality
+        if ($('#checkbox').is(':checked')) {
+            localStorage.setItem('FirstVisit', false);   
+        }
+    })
 
+})
 
 function fetchWeather(city) { //fetch weather data from openweather
     const geoApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${RfGyArBH}`
@@ -87,8 +92,6 @@ function displayEvents(eventsArray) {
     }
 
 };
-
-
 
 function fetchTicketmaster(city) {
 
@@ -157,7 +160,6 @@ function moreInfo(selectedEvent, i) { //display modal with details from event cl
 
 function saveEvent(eArray, i) { //save event to local storage
 
-    // let counter = localStorage.length
     var eventList = JSON.parse(localStorage.getItem('savedEvents')) || [];
     const event = {
         name: `${eArray[i].name}`,
@@ -167,11 +169,16 @@ function saveEvent(eArray, i) { //save event to local storage
         time: `${dayjs(eArray[i].dates.start.dateTime).format("h:mm A")}`,
         url: `${eArray[i].url}`
     }
-    eventList.push(event);
-    localStorage.setItem(`savedEvents`, JSON.stringify(eventList)); //saved item is (counterVal, event object)
-    // counter++; //increment counter for next save
 
-}
+    if (eventList.some(e => event.name === `${eArray[i].name}`)) {
+        $('#event-already-saved').modal('open');
+        return;
+    } else { 
+        eventList.push(event);
+    }
+
+    localStorage.setItem(`savedEvents`, JSON.stringify(eventList));
+    } //saved item is (counterVal, event object)
 
 
 listedEventsEl.addEventListener("click", function (event) { //listen for clicks on each event in the list
@@ -193,11 +200,7 @@ document.querySelector("#modal1").addEventListener("click", function (event) { /
         ;
 })
 
-$('#checkbox').click(function () {  //'do not show again' checkbox functionality
-    if ($('#checkbox').is(':checked')) {
-        localStorage.setItem('FirstVisit', false);   
-    }
-})
+
 
 window.onload = function () { //check if first visit, if so, trigger modal
     if (localStorage.getItem('FirstVisit') !== 'false') {
