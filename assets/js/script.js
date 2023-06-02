@@ -23,7 +23,7 @@ $(document).ready(function () { //modal and datepicker initialization
     })
     $('#checkbox').click(function () {  //'do not show again' checkbox functionality
         if ($('#checkbox').is(':checked')) {
-            localStorage.setItem('FirstVisit', false);   
+            localStorage.setItem('FirstVisit', false);
         }
     })
 
@@ -102,8 +102,8 @@ function fetchTicketmaster(city) {
 
     //fetch ticketmaster API
 
-  
-        let ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=${segmentName}&startDateTime=${selectedDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`
+
+    let ticketmasterApi = `https://app.ticketmaster.com/discovery/v2/events.json?city=${city}&segmentName=${segmentName}&startDateTime=${selectedDayAndTime}&endDateTime=${endOfDay}&size=40&sort=date,asc&apikey=${aTgFdFgW}`
 
 
 
@@ -137,8 +137,8 @@ function searchCity() {
 
 function moreInfo(selectedEvent, i) { //display modal with details from event clicked
 
-    document.querySelector('#modal1').innerHTML = 
-    `<div class= "container">
+    document.querySelector('#modal1').innerHTML =
+        `<div class= "container">
         <div class="row">
             <div class= "col s8">
                 <div class="modal-content">
@@ -171,14 +171,37 @@ function saveEvent(eArray, i) { //save event to local storage
         url: `${eArray[i].url}`
     }
 
-    if (eventList.some(e=> event.name === `${eArray[i].name}`)) {  //prevent dupes
-        $('#event-already-saved').modal('open');
+    // if (eventList.some(e=> event.name === `${eArray[i].name}`)) {  //prevent dupes
+    //     $('#event-already-saved').modal('open');
+    // } else {
+    //     eventList.push(event);
+    // }
+
+    if (eventList.length > 0) {
+        var isThere = false;
+        for (let i = 0; i < eventList.length; i++) {
+            if (eventList[i].name === event.name) {
+                isThere = !isThere;
+            }
+            else {
+                isThere = !(!isThere)
+            }
+            
+        }
+        if (isThere === false) {
+            eventList.push(event);
+            localStorage.setItem(`savedEvents`, JSON.stringify(eventList));
+        } else {
+            $('#event-already-saved').modal('open')
+
+        }
     } else {
         eventList.push(event);
+        localStorage.setItem(`savedEvents`, JSON.stringify(eventList));
     }
 
-    localStorage.setItem(`savedEvents`, JSON.stringify(eventList));
-    } //saved item is (counterVal, event object)
+   
+} //saved item is (counterVal, event object)
 
 
 listedEventsEl.addEventListener("click", function (event) { //listen for clicks on each event in the list
@@ -205,6 +228,6 @@ document.querySelector("#modal1").addEventListener("click", function (event) { /
 window.onload = function () { //check if first visit, if so, trigger modal
     if (localStorage.getItem('FirstVisit') !== 'false') {
         $('#page-load-modal').modal('open')
-    } 
-        
-    } 
+    }
+
+} 
