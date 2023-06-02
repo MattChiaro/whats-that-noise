@@ -7,3 +7,6 @@
     float: right;
 }
 
+#hidden-el {
+    min-width: 100%
+}
