@@ -199,9 +199,9 @@ $('#checkbox').click(function () {  //'do not show again' checkbox functionality
     }
 })
 
-window.onload = function () {
+window.onload = function () { //check if first visit, if so, trigger modal
     if (localStorage.getItem('FirstVisit') !== 'false') {
         $('#page-load-modal').modal('open')
     } 
         
-    } //check if first visit, if so, trigger modal
+    } 
