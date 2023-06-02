@@ -150,11 +150,12 @@ function moreInfo(selectedEvent, i) { //display modal with details from event cl
             </div>
         </div>
         <div class="modal-footer">
-        <button id="save-event-${i}" class="waves-effect waves-green btn">Save Event</button>
+        <button id="save-event-${i}" class="waves-effect waves-green btn save-event-button">Save Event</button>
         <a href="${selectedEvent.url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a>
         <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
         </div>
     </div>`
+
 
 }
 
@@ -170,10 +171,9 @@ function saveEvent(eArray, i) { //save event to local storage
         url: `${eArray[i].url}`
     }
 
-    if (eventList.some(e => event.name === `${eArray[i].name}`)) {
+    if (eventList.some(e=> event.name === `${eArray[i].name}`)) {  //prevent dupes
         $('#event-already-saved').modal('open');
-        return;
-    } else { 
+    } else {
         eventList.push(event);
     }
 
@@ -192,7 +192,7 @@ listedEventsEl.addEventListener("click", function (event) { //listen for clicks 
 
 document.querySelector("#modal1").addEventListener("click", function (event) { //listen for clicks on save event button
     const idArray = event.target.id.split("-")
-    event.target.textContent = "saved"
+    document.querySelector(".save-event-button").textContent = "saved"
     const i = idArray[2]
     saveEvent(eArray, i)
 
