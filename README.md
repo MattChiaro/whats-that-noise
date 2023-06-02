@@ -26,6 +26,25 @@ You will be given all the necessary details at your fingertips, we offer event i
 
 Our application strives to provide a user-friendly experience, making it easy for you to search, explore, and attend events that match your interests. Whether you're a local resident or a traveler looking for memorable experiences, our platform is designed to enhance your event discovery and ticket purchasing process.
 
+## INSTALLATION 
+Project is liev at https://mattchiaro.github.io/whats-that-noise/
+
+## USAGE
+
+
+## CREDITS
+https://jquery.com/
+https://materializecss.com/
+https://fonts.google.com/
+https://openweathermap.org/api
+https://developer.ticketmaster.com/
+
+By: 
+Matt Chiaro
+Suraj Nair
+Barry Engler
+
+
 ## ACCEPTANCE CRITERIA
 ```
 GIVEN a form field requesting city input
