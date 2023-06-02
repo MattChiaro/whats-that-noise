@@ -16,6 +16,7 @@
 </head>
 
 <body>
+  <!-- nav bar -->
   <nav>
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">Whats That Noise?</a>
@@ -24,30 +25,43 @@
       </ul>
     </div>
   </nav>
+<!-- row -->
   <div class="row">
     <div class="col s4">
       <form action="#">
         <div class="file-field input-field">
-          <div id="search-button" class="btn" type="submit" onclick="searchCity()">
-            <span>Search</span>
-          </div>
+          <div class="btn">Whats That Noise in...</div>
           <div class="file-path-wrapper">
-            <input id="search-input" class="search-input" type="text" placeholder="whats happening in...">
+            <input id="search-input" class="search-input" type="text" placeholder="City">
           </div>
         </div>
         <div class="file-field input-field">
-          <div id="search-button" class="datepicker btn" type="submit">
+          <div id="cal-button" class="datepicker btn" type="submit">
             <i class="material-icons">date_range</i>
           </div>
+          <div class="btn">On...</div>
           <div class="file-path-wrapper">
-            <input id="date-selector" type="text" placeholder="on...">
+            <input id="date-selector" type="text" placeholder="MM/DD/YYYY">
+          </div>
+        </div>
+        <div class="input-field">
+          <select id="event-type">
+            <option value="" selected>All Events</option>
+            <option value="music">Music</option>
+            <option value="sports">Sports</option>
+            <option value="miscellaneous">Misc.</option>
+          </select>
+          <div id="search-button" class="btn col s12" type="submit" onclick="searchCity()">
+            <span>Search!</span>
           </div>
         </div>
       </form>
-      <div id="hidden-el" class="card blue-grey darken-1 hide">
+
+    
+      <div id="hidden-el" class="card blue-grey darken-1 hide col">
         <div class="card-content white-text">
           <span class="card-title" id="currentweather">
-            <h4 id="current-weather-title"></h4>
+            <h5 id="current-weather-title"></h5>
           </span>
           <!-- current weather holder -->
           <div id="weatherinfo"></div>
@@ -55,11 +69,41 @@
       </div>
       <!-- Listed Events -->
     </div>
-    <ul class="collection eventlist col s8" id="listed-events">
-    </ul>
+    <ul class="collection eventlist col s8" id="listed-events"></ul>
   </div>
 
+
+  <!-- MODALS -->
+  <!-- ---------------------- -->
+
+
+  <!-- bottom trigger modal for event details -->
   <div id="modal1" class="modal bottom-sheet"></div>
+
+
+  <!-- city input validation modal -->
+  <div id="no-city-input" class="modal">
+    <div class="modal-content">
+      <h4>OOPS!</h4>
+      <p>You must type in a city</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">close</a>
+    </div>
+  </div>
+
+  <!-- date input validation modal -->
+  <div id="no-date-input" class="modal">
+    <div class="modal-content">
+      <h4>OOPS!</h4>
+      <p>You must enter a date</p>
+      <p><i>(we've auto-filled it with the current date for you)</i></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">close</a>
+    </div>
+  </div>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>

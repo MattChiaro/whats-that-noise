@@ -2,11 +2,11 @@
     border: 1px red dotted;
 } */
 
-.event-container {
-    overflow-y: scroll;
-    max-height: 20%;
+
+#cal-button {
+    float: right;
 }
 
-.event-container::-webkit-scrollbar {
-    display: none;
+#hidden-el {
+    min-width: 100%
 }
