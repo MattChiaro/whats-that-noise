@@ -27,7 +27,7 @@ function generateSaved() {
         number = i
         liForSaved.innerHTML = `
     <div class="collapsible-header font1" ><h5>${theSavedEvents[i].name}</h5></div>
-    <div class="collapsible-body font2"><span>Date: ${theSavedEvents[i].date} <br> Time: ${theSavedEvents[i].time} <br>  Venue: ${theSavedEvents[i].venue} <br>  Address: ${theSavedEvents[i].address}  <br>  <a href="${theSavedEvents[i].url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a></span> <a class="trash waves-effect waves-light btn del" id=${i}>🗑️</a></div>
+    <div class="collapsible-body font2"><span>Date: ${theSavedEvents[i].date} <br> Time: ${theSavedEvents[i].time} <br>  Venue: ${theSavedEvents[i].venue} <br>  Address: ${theSavedEvents[i].address}  <br>  <a href="${theSavedEvents[i].url}" target="_blank" class="cyan waves-effect waves-green btn">Get Tickets</a></span> <a class="cyan trash waves-effect waves-light btn del" id=${i}>🗑️</a></div>
     <div class = "divider"></div>
 `
         ulForSaved.appendChild(liForSaved)
@@ -40,7 +40,7 @@ function generateSaved() {
 
         liForSaved.innerHTML = `
     <div class="collapsible-header font1"><h5>${theSavedEvents[i].name}</h5></div>
-    <div class="collapsible-body font2"><span>Date: ${theSavedEvents[i].date} <br> Time: ${theSavedEvents[i].time} <br>  Venue: ${theSavedEvents[i].venue} <br>  Address: ${theSavedEvents[i].address}        <br> <a href="${theSavedEvents[i].url}" target="_blank" class="waves-effect waves-green btn">Get Tickets</a></span> <a class="trash waves-effect waves-light btn del" id=${i}>🗑️</a>
+    <div class="collapsible-body font2"><span>Date: ${theSavedEvents[i].date} <br> Time: ${theSavedEvents[i].time} <br>  Venue: ${theSavedEvents[i].venue} <br>  Address: ${theSavedEvents[i].address}        <br> <a href="${theSavedEvents[i].url}" target="_blank" class="cyan waves-effect waves-green btn">Get Tickets</a></span> <a class="cyan trash waves-effect waves-light btn del" id=${i}>🗑️</a>
     </div>
     <div class = "divider"></div>
     `

@@ -62,3 +62,17 @@
 .trash {
   float: right;
 }
+
+.datepicker-date-display {
+    background-color: #00bcd4 !important; 
+}
+
+.datepicker-cancel {
+    color: #00bcd4 !important;
+}
+
+.datepicker-done {
+    color: #00bcd4 !important;
+
+}
+
