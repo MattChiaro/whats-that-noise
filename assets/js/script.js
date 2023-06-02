@@ -193,4 +193,15 @@ document.querySelector("#modal1").addEventListener("click", function (event) { /
         ;
 })
 
-console.log(eventType)
+$('#checkbox').click(function () {  //'do not show again' checkbox functionality
+    if ($('#checkbox').is(':checked')) {
+        localStorage.setItem('FirstVisit', false);   
+    }
+})
+
+window.onload = function () {
+    if (localStorage.getItem('FirstVisit') !== 'false') {
+        $('#page-load-modal').modal('open')
+    } 
+        
+    } //check if first visit, if so, trigger modal
