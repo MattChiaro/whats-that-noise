@@ -30,8 +30,11 @@ Our application strives to provide a user-friendly experience, making it easy fo
 Project is liev at https://mattchiaro.github.io/whats-that-noise/
 
 ## USAGE
+Click the link above and give it a try!
 
-
+![Alt text](assets/images/whats%20that%20noise%201.gif)
+![Alt text](assets/images/whats%20that%20noise%202.gif)
+![Alt text](assets/images/whats%20that%20noise%203.gif)
 ## CREDITS
 https://jquery.com/
 https://materializecss.com/
