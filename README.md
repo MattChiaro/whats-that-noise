@@ -27,7 +27,7 @@ You will be given all the necessary details at your fingertips, we offer event i
 Our application strives to provide a user-friendly experience, making it easy for you to search, explore, and attend events that match your interests. Whether you're a local resident or a traveler looking for memorable experiences, our platform is designed to enhance your event discovery and ticket purchasing process.
 
 ## INSTALLATION 
-Project is liev at https://mattchiaro.github.io/whats-that-noise/
+Project is live at https://mattchiaro.github.io/whats-that-noise/
 
 ## USAGE
 Click the link above and give it a try!
